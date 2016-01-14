@@ -59,7 +59,7 @@ INSTALLED_APPS = (
 
 REST_FRAMEWORK = {
  #   'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
- #   'PAGE_SIZE': 10
+    'PAGE_SIZE': 10
 }
 
 MIDDLEWARE_CLASSES = (
@@ -130,9 +130,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-import os
+
 if os.environ.get('HEROKU'):  # heroku config:set HEROKU=1
     import dj_database_url
-    DATABASES['default'] = dj_database_url.config()
+    DATABASES = { 'default': dj_database_url.config() }
 
 LOGIN_REDIRECT_URL = '/'
