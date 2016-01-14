@@ -128,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_ROOT = ''
+STATIC_ROOT = 'C:/Users/Soleyda/Desktop/lmntsProject/static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
