@@ -12,11 +12,18 @@ class CharacteristicsSerializer(serializers.ModelSerializer):
 
 class MachineSerializer(serializers.ModelSerializer):
 
-	characteristics = serializers.StringRelatedField(many=True, required=False)
+	characteristics = CharacteristicsSerializer(many=True, required=False)
 
 	class Meta:
 		model = machine
 		fields = ('machineType', 'family', 'serial','MAC', 'services', 'characteristics')
+
+	def create(self, validated_data):
+		characteristics_data = validated_data.pop('characteristics')
+		machineToCreate = machine.objects.create(**validated_data)
+		for characteristics_data in characteristics_data:
+		    characteristics.objects.create(parent=machineToCreate, **characteristics_data)
+		return machineToCreate
 
 
 

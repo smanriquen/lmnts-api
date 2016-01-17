@@ -79,8 +79,9 @@ class CharacteristicsDetails(APIView):
 	def post(self, request, family, machineType, serial, field, value, format=None):
 
 		machine = getJustOneMachine(family, machineType, serial)
-		request.data['parent'] = machine.serial
-		serializedCharacteristics=CharacteristicsSerializer(data=request.data)
+		for characteristic in request.data:
+			characteristic['parent'] = machine.serial
+		serializedCharacteristics=CharacteristicsSerializer(data=request.data, many=True)
 		if serializedCharacteristics.is_valid():
 			serializedCharacteristics.save()
 			return Response(serializedCharacteristics.data, status = status.HTTP_201_CREATED)
